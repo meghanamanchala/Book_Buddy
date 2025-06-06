@@ -1,11 +1,28 @@
-<% content_for :title, "New user" %>
+<h2>Sign Up</h2>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: @user, local: true do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
 
-<h1>New user</h1>
+  <%= f.label :email %><br>
+  <%= f.email_field :email %><br>
 
-<%= render "form", user: @user %>
+  <%= f.label :password %><br>
+  <%= f.password_field :password %><br>
 
-<br>
+  <%= f.label :password_confirmation %><br>
+  <%= f.password_field :password_confirmation %><br>
 
-<div>
-  <%= link_to "Back to users", users_path %>
-</div>
+  <%= f.submit "Create Account" %>
+<% end %>
+
+
