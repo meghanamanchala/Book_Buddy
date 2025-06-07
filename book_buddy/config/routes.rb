@@ -17,4 +17,8 @@ Rails.application.routes.draw do
 
   # User dashboard (custom route)
   get '/dashboard', to: 'users#dashboard', as: 'dashboard'
+
+  # Book CRUD routes
+  resources :books
+
 end
