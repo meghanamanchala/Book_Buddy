@@ -1,0 +1,14 @@
+<h1>My Books</h1>
+
+<%= link_to 'Add New Book', new_book_path, class: 'button' %>
+
+<ul>
+  <% @books.each do |book| %>
+    <li>
+      <strong><%= link_to book.title, book_path(book) %></strong> by <%= book.author %><br>
+      Genre: <%= book.genre %><br>
+      <%= link_to 'Edit', edit_book_path(book) %> |
+      <%= link_to 'Delete', book_path(book), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
