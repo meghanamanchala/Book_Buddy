@@ -1,10 +1,22 @@
+<!-- Navigation Bar -->
+<nav class="bg-green-600 text-white px-6 py-4 flex justify-between items-center">
+  <div class="text-lg font-semibold">
+    My Library App
+  </div>
+  <div class="space-x-4">
+    <%= link_to "Home", dashboard_path, class: "hover:underline" %>
+    <%= link_to "My Books", books_path, class: "hover:underline" %>
+    <%= button_to "Logout", logout_path, method: :delete, class: "hover:underline" %>
+  </div>
+</nav>
+
+<!-- Dashboard Body -->
 <div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
   <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center space-y-6">
     <h2 class="text-2xl font-bold text-green-700">
       Welcome, <%= current_user.name %>
     </h2>
 
-    <%= button_to "Logout", logout_path, method: :delete,
-      class: "bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition duration-200" %>
+
   </div>
 </div>
