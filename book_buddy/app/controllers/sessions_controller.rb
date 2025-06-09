@@ -17,6 +17,7 @@ end
 
 def destroy
   reset_session
+  flash[:notice] = "Logged out successfully"
   redirect_to login_path, notice: "Logged out!"
 end
 

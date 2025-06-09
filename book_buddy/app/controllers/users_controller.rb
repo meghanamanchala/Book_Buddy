@@ -8,9 +8,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user, notice: "Account created successfully!"
+      flash[:notice] = "Account created successfully!"
+      redirect_to @user
     else
-      puts @user.errors.full_messages 
+      flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
@@ -22,8 +23,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to @user, notice: "User updated successfully!"
+      flash[:notice] = "User updated successfully!"
+      redirect_to @user
     else
+      flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
