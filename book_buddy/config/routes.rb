@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   # Root route goes to login page (sessions#new)
   root 'sessions#new'
 
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'users#dashboard', as: 'dashboard'
 
   # Book CRUD routes
-  resources :books
+  resources :books do
+    resources :reviews, only: [:create]
+  end
 
 end
