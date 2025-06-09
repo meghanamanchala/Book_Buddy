@@ -7,7 +7,9 @@ class BooksController < ApplicationController
     @books = current_user.books
   end
 
-  def show; end
+def show
+  @review = @book.reviews.build
+end
 
   def new
     @book = current_user.books.build

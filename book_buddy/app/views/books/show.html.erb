@@ -6,3 +6,40 @@
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back to My Books', books_path %>
+
+<hr>
+
+<h2>Add a Review</h2>
+
+<%= form_with(model: [@book, @review], local: true) do |form| %>
+  <div>
+    <%= form.label :rating %><br>
+    <%= form.number_field :rating, in: 1..5 %>
+  </div>
+
+  <div>
+    <%= form.label :comment %><br>
+    <%= form.text_area :comment, rows: 4 %>
+  </div>
+
+  <div>
+    <%= form.submit "Submit Review" %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>Reviews</h2>
+
+<% if @book.reviews.any? %>
+  <% @book.reviews.each do |review| %>
+    <div>
+      <strong>Rating:</strong> <%= review.rating %><br>
+      <strong>Comment:</strong><br>
+      <%= simple_format(review.comment) %>
+    </div>
+    <hr>
+  <% end %>
+<% else %>
+  <p>No reviews yet.</p>
+<% end %>
