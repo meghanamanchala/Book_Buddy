@@ -18,9 +18,11 @@ end
   def create
     @book = current_user.books.build(book_params)
     if @book.save
-      redirect_to @book, notice: 'Book created successfully.'
+      flash[:notice] = "Book created successfully."
+      redirect_to @book 
     else
-      render :new
+      flash.now[:alert] = "Failed to create book."
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -28,15 +30,18 @@ end
 
   def update
     if @book.update(book_params)
-      redirect_to @book, notice: 'Book updated successfully.'
+      flash[:notice] = "Book updated successfully."
+      redirect_to @book
     else
-      render :edit
+      flash.now[:alert] = "Failed to update book."
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @book.destroy
-    redirect_to books_path, notice: 'Book deleted successfully.'
+    flash[:notice] = "Book deleted successfully."
+    redirect_to books_path
   end
 
   private
