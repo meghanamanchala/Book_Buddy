@@ -17,9 +17,17 @@ View all their books and reviews in a dashboard
 | Styling           | Basic Bootstrap styling                    |
 
 
-# Tech Stack:
-Ruby (Core language)
-Ruby on Rails (MVC)
-Database: Any ( PostgreSQL, MySQL, SQLite, etc.) – student’s choice
-Git + GitHub (version control)
-Bundler, Gems (used in Weeks 1–2)
+---
+
+## 🚀 Live Demo
+
+👉 [Click here to view the deployed app](https://book-buddy-765e.onrender.com)  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Ruby on Rails 8, PostgreSQL
+- **Frontend:** Tailwind CSS
+- **Deployment:** Render (Kamal configured)
+---
