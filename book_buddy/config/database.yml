@@ -11,6 +11,8 @@ test:
   <<: *default
 
 production:
-  <<: *default
-  cable: # 👈 add this section
-    <<: *default
+  primary:
+    url: <%= ENV["DATABASE_URL"] %>
+  cable:
+    url: <%= ENV["DATABASE_URL"] %>
+
