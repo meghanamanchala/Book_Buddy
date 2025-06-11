@@ -18,9 +18,13 @@ Rails.application.routes.draw do
 
   # User dashboard (custom route)
   get '/dashboard', to: 'users#dashboard', as: 'dashboard'
+  post '/toggle_theme', to: 'application#toggle_theme', as: 'toggle_theme'
 
   # Book CRUD routes
   resources :books do
+    member do
+      patch :restore
+    end
     resources :reviews, only: [:create]
   end
 

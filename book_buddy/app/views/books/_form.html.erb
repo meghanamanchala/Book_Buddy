@@ -1,36 +1,40 @@
-<%= form_with(model: @book, local: true) do |form| %>
-  <% if @book.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@book.errors.count, "error") %> prevented this book from being saved:</h2>
-      <ul>
-        <% @book.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="d-flex justify-content-center mt-5">
+  <div class="card shadow-sm p-4" style="width: 100%; max-width: 500px;">
+    <%= form_with(model: @book, local: true) do |form| %>
+      <% if @book.errors.any? %>
+        <div class="alert alert-danger">
+          <strong><%= pluralize(@book.errors.count, "error") %>:</strong>
+          <ul class="mb-0">
+            <% @book.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
+      <div class="mb-3">
+        <%= form.label :title, class: "form-label" %>
+        <%= form.text_field :title, class: "form-control form-control-sm", required: true %>
+      </div>
 
-  <p>
-    <%= form.label :author %><br>
-    <%= form.text_field :author %>
-  </p>
+      <div class="mb-3">
+        <%= form.label :author, class: "form-label" %>
+        <%= form.text_field :author, class: "form-control form-control-sm", required: true %>
+      </div>
 
-  <p>
-    <%= form.label :genre %><br>
-    <%= form.text_field :genre %>
-  </p>
+      <div class="mb-3">
+        <%= form.label :genre, class: "form-label" %>
+        <%= form.text_field :genre, class: "form-control form-control-sm" %>
+      </div>
 
-  <p>
-    <%= form.label :notes %><br>
-    <%= form.text_area :notes %>
-  </p>
+      <div class="mb-3">
+        <%= form.label :notes, class: "form-label" %>
+        <%= form.text_area :notes, class: "form-control form-control-sm", rows: 3 %>
+      </div>
 
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+      <div class="text-center">
+        <%= form.submit @book.new_record? ? "Add Book" : "Update Book", class: "btn btn-success btn-sm px-4" %>
+      </div>
+    <% end %>
+  </div>
+</div>

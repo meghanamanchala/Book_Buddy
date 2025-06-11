@@ -1,16 +1,31 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Users" %>
 
-<h1>Users</h1>
+<div class="container mt-4">
 
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
+  <% if notice %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New user", new_user_path %>
+  <h1 class="mb-4">Users</h1>
+
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary"><%= user.name %></h5>
+            <p class="card-text text-muted"><strong>Email:</strong> <%= user.email %></p>
+            <%= link_to "Show this user", user_path(user), class: "btn btn-sm btn-outline-primary mt-2" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to "➕ New User", new_user_path, class: "btn btn-success" %>
+  </div>
+</div>

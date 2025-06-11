@@ -1,22 +1,29 @@
-<h1>Login</h1>
+<h1 class="text-center mt-5 mb-4">Login</h1>
 
-<%= form_with url: sessions_path, method: :post, local: true do |form| %>
-  <div>
-    <%= form.label :email %><br>
-    <%= form.email_field :email, autofocus: true %>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <%= form_with url: sessions_path, method: :post, local: true do |form| %>
+          <div class="mb-3">
+            <%= form.label :email, class: "form-label" %>
+            <%= form.email_field :email, autofocus: true, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :password, class: "form-label" %>
+            <%= form.password_field :password, class: "form-control" %>
+          </div>
+
+          <div class="d-grid">
+            <%= form.submit "Log in", class: "btn btn-success" %>
+          </div>
+        <% end %>
+
+        <p class="mt-3 text-center">
+          Don't have an account? <%= link_to "Sign up", new_user_path, class: "link-primary" %>
+        </p>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :password %><br>
-    <%= form.password_field :password %>
-  </div>
-
-  <div>
-    <%= form.submit "Log in" %>
-  </div>
-<% end %>
-
-<p>
-  Don't have an account? <%= link_to "Sign up", new_user_path %>
-</p>
-
+</div>

@@ -40,8 +40,15 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    @user = User.find(session[:user_id])
+  @user = current_user
+  if params[:view] == 'deleted'
+    @deleted_books = @user.books.only_deleted
+    @books = []
+  else
+    @books = @user.books.where(deleted_at: nil)
+    @deleted_books = []
   end
+end
 
   private
 
