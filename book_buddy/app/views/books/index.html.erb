@@ -1,14 +1,25 @@
-<h1>My Books</h1>
+<div class="container mt-5">
+  <h1 class="mb-4">My Books</h1>
 
-<%= link_to 'Add New Book', new_book_path, class: 'button' %>
+  <%= link_to 'Add New Book', new_book_path, class: 'btn btn-success mb-4' %>
 
-<ul>
-  <% @books.each do |book| %>
-    <li>
-      <strong><%= link_to book.title, book_path(book) %></strong> by <%= book.author %><br>
-      Genre: <%= book.genre %><br>
-      <%= link_to 'Edit', edit_book_path(book) %> |
-      <%= link_to 'Delete', book_path(book), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
+  <% if @books.any? %>
+    <ul class="list-group">
+      <% @books.each do |book| %>
+        <li class="list-group-item">
+          <h5 class="mb-1">
+            <%= link_to book.title, book_path(book), class: "text-decoration-none" %>
+          </h5>
+          <p class="mb-1"><strong>Author:</strong> <%= book.author %></p>
+          <p class="mb-2"><strong>Genre:</strong> <%= book.genre %></p>
+          <div class="d-flex gap-2">
+            <%= link_to 'Edit', edit_book_path(book), class: 'btn btn-sm btn-primary me-2' %>
+            <%= button_to 'Delete', book_path(book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'%>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No books found. Add a new one to get started.</p>
   <% end %>
-</ul>
+</div>

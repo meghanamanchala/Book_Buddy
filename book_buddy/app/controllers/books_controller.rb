@@ -39,10 +39,16 @@ end
   end
 
   def destroy
-    @book.destroy
-    flash[:notice] = "Book deleted successfully."
-    redirect_to books_path
-  end
+  @book.update(deleted_at: Time.current)
+  flash[:notice] = "Book deleted successfully."
+  redirect_to dashboard_path
+end
+def restore
+  @book = current_user.books.only_deleted.find(params[:id])
+  @book.update(deleted_at: nil)
+  flash[:notice] = "Book restored successfully."
+  redirect_to dashboard_path
+end
 
   private
 

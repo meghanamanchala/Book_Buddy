@@ -1,17 +1,15 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
+<div id="<%= dom_id user %>" class="card mb-3 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title text-primary"><%= user.name %></h5>
 
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
+    <p class="card-text mb-1">
+      <strong>Email:</strong>
+      <span class="text-muted"><%= user.email %></span>
+    </p>
 
-  <p>
-    <strong>Password digest:</strong>
-    <%= user.password_digest %>
-  </p>
-
+    <p class="card-text">
+      <strong>Password Digest:</strong>
+      <span class="text-muted"><%= user.password_digest %></span>
+    </p>
+  </div>
 </div>
