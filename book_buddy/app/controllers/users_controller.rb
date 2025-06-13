@@ -5,16 +5,16 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      flash[:notice] = "Account created successfully!"
-      redirect_to @user
-    else
-      flash.now[:alert] = @user.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
-    end
+def create
+  @user = User.new(user_params)
+  if @user.save
+    flash[:notice] = "Account created successfully! Please log in to continue."
+    redirect_to login_path
+  else
+    flash.now[:alert] = @user.errors.full_messages.to_sentence
+    render :new, status: :unprocessable_entity
   end
+end
 
   def edit
     @user = User.find(params[:id])
@@ -39,14 +39,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def dashboard
+def dashboard
   @user = current_user
   if params[:view] == 'deleted'
     @deleted_books = @user.books.only_deleted
-    @books = []
+    @books = [] # nothing to show in main panel
   else
-    @books = @user.books.where(deleted_at: nil)
-    @deleted_books = []
+    @books = @user.books.includes(:reviews).where(deleted_at: nil)
+    @deleted_books = @user.books.only_deleted
   end
 end
 
