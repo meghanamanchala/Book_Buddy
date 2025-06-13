@@ -1,25 +1,83 @@
-<div class="container mt-5">
-  <h1 class="mb-4">My Books</h1>
+<div class="container my-5">
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold text-primary">📚 My Books</h1>
+    <%= link_to '➕ Add New Book', new_book_path, class: 'btn btn-success fw-semibold shadow-sm' %>
+  </div>
 
-  <%= link_to 'Add New Book', new_book_path, class: 'btn btn-success mb-4' %>
+  <!-- Toggle Active / Deleted -->
+  <div class="mb-4 d-flex gap-3">
+    <%= link_to '📖 Active Books', books_path(view: 'active'),
+      class: "btn px-4 #{params[:view] != 'deleted' ? 'btn-success' : 'btn-outline-success'} fw-semibold shadow-sm" %>
 
-  <% if @books.any? %>
-    <ul class="list-group">
-      <% @books.each do |book| %>
-        <li class="list-group-item">
-          <h5 class="mb-1">
-            <%= link_to book.title, book_path(book), class: "text-decoration-none" %>
-          </h5>
-          <p class="mb-1"><strong>Author:</strong> <%= book.author %></p>
-          <p class="mb-2"><strong>Genre:</strong> <%= book.genre %></p>
-          <div class="d-flex gap-2">
-            <%= link_to 'Edit', edit_book_path(book), class: 'btn btn-sm btn-primary me-2' %>
-            <%= button_to 'Delete', book_path(book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'%>
+    <%= link_to '🗑️ Deleted Books', books_path(view: 'deleted'),
+      class: "btn px-4 #{params[:view] == 'deleted' ? 'btn-danger' : 'btn-outline-danger'} fw-semibold shadow-sm" %>
+  </div>
+
+  <% if params[:view] == 'deleted' %>
+    <!-- Deleted Books Section -->
+    <% if @deleted_books.present? %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% @deleted_books.each do |book| %>
+          <div class="col">
+            <div class="card h-100 border border-danger-subtle shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title text-danger"><%= book.title %></h5>
+                <p><strong>Author:</strong> <%= book.author %></p>
+                <p><strong>Genre:</strong> <%= book.genre %></p>
+                <p class="text-muted">Deleted on: <%= book.deleted_at.strftime("%d-%b-%Y %I:%M %p") %></p>
+              </div>
+              <div class="card-footer bg-transparent border-0">
+                <%= button_to '♻️ Restore', restore_book_path(book), method: :patch, class: 'btn btn-sm btn-success' %>
+              </div>
+            </div>
           </div>
-        </li>
-      <% end %>
-    </ul>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info">No deleted books found.</div>
+    <% end %>
+
   <% else %>
-    <p>No books found. Add a new one to get started.</p>
+    <!-- Active Books Section -->
+    <% if @books.present? %>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% @books.each do |book| %>
+          <div class="col">
+            <div class="card h-100 border-0 shadow-lg rounded-4">
+              <div class="card-body">
+                <h5 class="card-title text-primary"><%= book.title %></h5>
+                <p><strong>Author:</strong> <%= book.author %></p>
+                <p><strong>Genre:</strong> <%= book.genre %></p>
+
+                <% if book.reviews.any? %>
+                  <p class="fw-semibold mb-1">⭐ Reviews:</p>
+                  <ul class="ps-3">
+                    <% book.reviews.each do |review| %>
+                      <li><strong><%= review.rating %>⭐</strong> – <%= review.comment %></li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <p class="text-muted">No reviews yet.</p>
+                <% end %>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                <%= link_to '👁️ View', book_path(book), class: 'btn btn-sm btn-outline-primary' %>
+                <%= link_to '✏️ Edit', edit_book_path(book), class: 'btn btn-sm btn-outline-warning' %>
+                <%= button_to '🗑️ Delete', book_path(book),
+                method: :delete,
+                data: { confirm: 'Are you sure you want to delete this book?' },
+                class: 'btn btn-sm btn-outline-danger' %>
+
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info mt-4" role="alert">
+        No books found. <%= link_to 'Add your first one!', new_book_path, class: 'alert-link' %>
+      </div>
+    <% end %>
   <% end %>
 </div>

@@ -3,9 +3,13 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
-  def index
-    @books = current_user.books
+def index
+  if params[:view] == 'deleted'
+    @deleted_books = Book.only_deleted.where(user: current_user)
+  else
+    @books = Book.where(user: current_user, deleted_at: nil)
   end
+end
 
 def show
   @review = @book.reviews.build
@@ -41,13 +45,13 @@ end
   def destroy
   @book.update(deleted_at: Time.current)
   flash[:notice] = "Book deleted successfully."
-  redirect_to dashboard_path
+  redirect_to books_path
 end
 def restore
   @book = current_user.books.only_deleted.find(params[:id])
   @book.update(deleted_at: nil)
   flash[:notice] = "Book restored successfully."
-  redirect_to dashboard_path
+  redirect_to books_path
 end
 
   private
