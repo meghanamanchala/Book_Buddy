@@ -31,3 +31,5 @@ View all their books and reviews in a dashboard
 - **Frontend:** Tailwind CSS
 - **Deployment:** Render (Kamal configured)
 ---
+
+Walkthrogh Video link: https://drive.google.com/file/d/1t0zMrEQM4m36jBALqtjllp0BA0uLWhrm/view?usp=drivesdk
